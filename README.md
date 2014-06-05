@@ -1,0 +1,4 @@
+sgb-filedrop
+============
+
+FileDrop panel
