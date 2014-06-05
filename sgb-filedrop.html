@@ -1,0 +1,132 @@
+<!--
+Copyright 2014 Starcounter. All rights reserved.
+-->
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-ajax/polymer-ajax.html">
+
+<polymer-element name="sgb-filedrop" attributes="value url">
+
+	<template>
+
+		<style>
+
+			:host {
+
+				display: -webkit-box;
+				display: -moz-box;
+				display: -ms-flexbox;
+				display: -webkit-flex;
+				display: flex;
+			}
+
+		</style>
+
+		<polymer-ajax 
+			id="postMedia" 
+			method="POST"  
+			url="{{url}}"
+			on-polymer-response="{{handleResponse}}">
+		</polymer-ajax>
+
+		<content></content>
+		
+	</template>
+
+	<script>
+
+	    "use strict";
+
+	    Polymer('sgb-filedrop', {
+	    	url : "",
+	      	ready: function() {
+
+				this.setupDrop();
+			},
+	      	setupDrop: function() {
+
+				var postMedia = this.$.postMedia;
+
+				if (typeof window.FileReader === 'undefined') {
+					// TODO: Browser do not support 'FileReader'
+				}
+
+				this.onpaste = function(event) {
+ 
+ 					var items = event.clipboardData.items;
+
+ 					for( var i = 0, item ; item = event.clipboardData.items[i] ; i++) {
+
+						if( item.kind == "file" ) {
+							var blob = item.getAsFile();
+							var reader = new FileReader();
+							reader.onload = function (event) {
+								// POST Image to server
+								postMedia.headers = null;
+								postMedia.body = event.target.result;
+								postMedia.go();
+							};					
+							reader.readAsDataURL(blob);
+						}
+ 					}
+				}
+
+				this.ondragleave = function () { 
+
+			        if( this.classList.contains("hover") ) {
+			          this.classList.remove("hover");
+			        }
+				}
+
+				this.ondragover = function (e) { 
+
+					e.stopPropagation();
+
+					if( !this.classList.contains("hover") ) {
+						this.classList.add("hover");
+					}					
+					return false;
+				}
+
+				this.ondragend = function () { 
+
+			        if( this.classList.contains("hover") ) {
+			          this.classList.remove("hover");
+			        }
+					return false; 
+				}
+
+				this.ondrop = function (e) {
+					
+			        if( this.classList.contains("hover") ) {
+			          this.classList.remove("hover");
+			        }
+
+					e.preventDefault();
+
+					for (var i = 0, file; file = e.dataTransfer.files[i]; i++) {
+
+						var reader = new FileReader();
+
+						reader.onload = function (event) {
+							// POST Image to server
+							postMedia.headers={"x-filename": this.xFileName };
+							postMedia.body = event.target.result;
+							postMedia.go();
+						};
+
+						reader.xFileName = file.name;
+						reader.readAsDataURL(file);
+					}
+					return false;
+				}
+	      	},
+			handleResponse: function(ev, res) { 
+
+				var fileName = res.xhr.getResponseHeader("x-filename");
+
+				this.value = "!["+fileName+"](" + res.response + ")";
+				this.fire('fileDrop', {mediaUrl: this.value});
+			}
+	    });
+	</script>
+</polymer-element>
