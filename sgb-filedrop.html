@@ -4,7 +4,7 @@ Copyright 2014 Smörgåsbord Development. All rights reserved.
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymer-ajax/polymer-ajax.html">
 
-<polymer-element name="sgb-filedrop" attributes="value url">
+<polymer-element name="sgb-filedrop" attributes="url">
 
 	<template>
 
@@ -25,7 +25,8 @@ Copyright 2014 Smörgåsbord Development. All rights reserved.
 			id="postMedia" 
 			method="POST"  
 			url="{{url}}"
-			on-polymer-response="{{handleResponse}}">
+			on-polymer-response="{{handleResponse}}"
+			on-polymer-error="{{handleError}}">
 		</polymer-ajax>
 
 		<content></content>
@@ -61,10 +62,14 @@ Copyright 2014 Smörgåsbord Development. All rights reserved.
 							var reader = new FileReader();
 							reader.onload = function (event) {
 								// POST Image to server
-								postMedia.headers = null;
+								postMedia.headers = {"x-file": JSON.stringify(this.xFile) };
+								postMedia.xFile = this.xFile;
 								postMedia.body = event.target.result;
 								postMedia.go();
 							};					
+
+							reader.xFile = { type: item.type, name: item.type };
+							this.fire('fileUploading', reader.xFile);
 							reader.readAsDataURL(blob);
 						}
  					}
@@ -109,12 +114,14 @@ Copyright 2014 Smörgåsbord Development. All rights reserved.
 
 						reader.onload = function (event) {
 							// POST Image to server
-							postMedia.headers={"x-filename": this.xFileName };
+							postMedia.headers = {"x-file": JSON.stringify(this.xFile) };
 							postMedia.body = event.target.result;
+							postMedia.xFile = this.xFile;
 							postMedia.go();
 						};
 
-						reader.xFileName = file.name;
+						reader.xFile = { type: file.type, name: file.name}
+						this.fire('fileUploading', reader.xFile );
 						reader.readAsDataURL(file);
 					}
 					return false;
@@ -122,10 +129,20 @@ Copyright 2014 Smörgåsbord Development. All rights reserved.
 	      	},
 			handleResponse: function(ev, res) { 
 
-				var fileName = res.xhr.getResponseHeader("x-filename");
+				var xFile = JSON.parse(res.xhr.getResponseHeader("x-file"));
+				xFile.status = res.xhr.status;
+				xFile.statusText = res.xhr.statusText;
+				xFile.url = res.xhr.getResponseHeader("Location");	 /* Append url */
 
-				this.value = "!["+fileName+"](" + res.response + ")";
-				this.fire('fileDrop', {mediaUrl: this.value});
+				this.fire('fileUploaded', xFile);
+			},
+			handleError: function( ev, res ) {
+				var xFile = ev.srcElement.xFile;
+				xFile.status = res.xhr.status;
+				xFile.statusText = res.xhr.statusText;
+				xFile.url = "";
+
+				this.fire('fileUploadError', xFile);
 			}
 	    });
 	</script>
