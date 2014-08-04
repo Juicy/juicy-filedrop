@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "homepage": "https://github.com/Smorgasbord-Development/sgb-filedrop",
   "authors": [
-    "andwah <anders.wahlgren@societyobjects.com>"
+    "andwah <anders.wahlgren@societyobjects.com>",
+    "Tomek Wytrebowicz <tomalecpub@gmail.com>"
   ],
   "description": "Polymer Element with file drop panel",
-  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -16,6 +16,6 @@
   ],
   "dependencies": {
     "polymer": "polymer/polymer#~0.3.4",
-    "polymer-ajax": "polymer/polymer-ajax#~0.3.0"
+    "core-ajax": "polymer/core-ajax#~0.3.4"
   }
 }

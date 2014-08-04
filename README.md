@@ -38,9 +38,10 @@ Or [download as ZIP](https://github.com/Smorgasbord-Development/sgb-filedrop/arc
 
 ## Options
 
-Attribute | Options  | Default | Description
----       | ---      | ---     | ---
-`url`     | *string* | ``      | URL to files storage server.
+Attribute      | Options  | Default  | Description
+---            | ---      | ---      | ---
+`url`          | *string* | ``       | URL to files storage server.
+`customheader` | *string* | `x-file` | Name for custom header that contains JSON with file meta data.
 
 ## Events
 
@@ -61,4 +62,4 @@ Event           | `event.detail` | Description
 
 ## History
 
-For detailed changelog, check [Releases](https://github.com/my-user/my-repo/releases).
+For detailed changelog, check [Releases](https://github.com/Smorgasbord-Development/sgb-filedrop/releases).

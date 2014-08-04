@@ -2,7 +2,7 @@
 Copyright 2014 Smörgåsbord Development. All rights reserved.
 -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../polymer-ajax/polymer-ajax.html">
+<link rel="import" href="../core-ajax/core-ajax.html">
 
 <polymer-element name="sgb-filedrop" attributes="url customheader">
 
@@ -21,13 +21,13 @@ Copyright 2014 Smörgåsbord Development. All rights reserved.
 
 		</style>
 
-		<polymer-ajax 
+		<core-ajax 
 			id="postMedia" 
 			method="POST"  
 			url="{{url}}"
-			on-polymer-response="{{handleResponse}}"
-			on-polymer-error="{{handleError}}">
-		</polymer-ajax>
+			on-core-response="{{handleResponse}}"
+			on-core-error="{{handleError}}">
+		</core-ajax>
 
 		<content></content>
 		
