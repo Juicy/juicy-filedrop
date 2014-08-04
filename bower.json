@@ -5,7 +5,7 @@
   "authors": [
     "andwah <anders.wahlgren@societyobjects.com>"
   ],
-  "description": "Filedrop panel",
+  "description": "Polymer Element with file drop panel",
   "license": "MIT",
   "ignore": [
     "**/.*",
@@ -15,7 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "polymer/polymer#~0.3.1",
+    "polymer": "polymer/polymer#~0.3.4",
     "polymer-ajax": "polymer/polymer-ajax#~0.3.0"
   }
 }
