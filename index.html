@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>&lt;sgb-filedrop&gt;</title>
+    <title>&lt;juicy-filedrop&gt;</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/github-markdown-css/0.2.0/github-markdown.min.css">
     <style>
-        sgb-filedrop{
+        juicy-filedrop{
             width: calc( 100% - 2em ); 
             display:block; 
             padding: 1em;
@@ -29,27 +29,28 @@
     <script src="test/mockServer.js"></script>
 
     <!-- Importing Custom Elements -->
-    <link rel="import" href="sgb-filedrop.html">
+    <link rel="import" href="juicy-filedrop.html">
 </head>
 <body class="markdown-body">
-<a href="https://github.com/Smorgasbord-Development/sgb-filedrop"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 9;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<a href="https://github.com/Juicy/juicy-filedrop"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 9;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
-<h1>&lt;sgb-filedrop&gt;</h1>
+<h1>&lt;juicy-filedrop&gt;</h1>
+
 <p>Polymer Element with file drop panel.</p>
 
     <!-- Using Custom Elements -->
-    <sgb-filedrop 
+    <juicy-filedrop 
         url="/storage/server/path" 
         style="">
             Hey, drop some file at me!
-    </sgb-filedrop>
+    </juicy-filedrop>
 
 
 
     <!-- Handling its events -->
     <script>
     (function(){
-      var filedrop = document.querySelector('sgb-filedrop');
+      var filedrop = document.querySelector('juicy-filedrop');
 
       // Upload started
       filedrop.addEventListener('fileUploading', function(ev) {
@@ -70,7 +71,7 @@
     </script>
 
 <p>
-    Please note, that for this demo we use mock server (<a href="https://github.com/cjohansen/Sinon.JS">Sinon.JS</a>). So observe console, as <code>sgb-filedrop</code>'s request will not reach network tab.
+    Please note, that for this demo we use mock server (<a href="https://github.com/cjohansen/Sinon.JS">Sinon.JS</a>). So observe console, as <code>juicy-filedrop</code>'s request will not reach network tab.
 </p>
 
 

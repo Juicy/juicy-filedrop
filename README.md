@@ -1,20 +1,20 @@
-# &lt;sgb-filedrop&gt;
+# &lt;juicy-filedrop&gt;
 
 > Polymer Element with file drop panel
 
 ## Demo
 
-[Check it live!](http://Smorgasbord-Development.github.io/sgb-filedrop)
+[Check it live!](http://Juicy.github.io/juicy-filedrop)
 
 ## Install
 
 Install the component using [Bower](http://bower.io/):
 
 ```sh
-$ bower install sgb-filedrop --save
+$ bower install juicy-filedrop --save
 ```
 
-Or [download as ZIP](https://github.com/Smorgasbord-Development/sgb-filedrop/archive/master.zip).
+Or [download as ZIP](https://github.com/Juicy/juicy-filedrop/archive/master.zip).
 
 ## Usage
 
@@ -27,7 +27,7 @@ Or [download as ZIP](https://github.com/Smorgasbord-Development/sgb-filedrop/arc
 2. Import Custom Element:
 
     ```html
-    <link rel="import" href="bower_components/sgb-filedrop/sgb-filedrop.html">
+    <link rel="import" href="bower_components/juicy-filedrop/juicy-filedrop.html">
     ```
 
 3. Start using it!
@@ -62,4 +62,4 @@ Event           | `event.detail` | Description
 
 ## History
 
-For detailed changelog, check [Releases](https://github.com/Smorgasbord-Development/sgb-filedrop/releases).
+For detailed changelog, check [Releases](https://github.com/Juicy/juicy-filedrop/releases).
