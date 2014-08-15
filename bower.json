@@ -7,6 +7,12 @@
     "Tomek Wytrebowicz <tomalecpub@gmail.com>"
   ],
   "description": "Polymer Element with file drop panel",
+  "keywords": [
+    "polymer",
+    "web-components",
+    "juicy",
+    "drop"
+  ],
   "ignore": [
     "**/.*",
     "node_modules",
