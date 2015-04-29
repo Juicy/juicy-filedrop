@@ -79,15 +79,22 @@ Copyright 2015 Smörgåsbord Development. All rights reserved.
                     element.fireEvent('onclick', ev);
                 }
             },
+            fileToJson: function (file) {
+                return JSON.stringify({
+                    type: file.type,
+                    name: encodeURIComponent(file.name)
+                });
+            },
             readData: function (file) {
                 var postMedia = this.$.postMedia;
                 var customheader = this.customheader;
                 var reader = new FileReader();
+                var that = this;
 
                 reader.onload = function (event) {
                     // POST Image to server
                     postMedia.headers = {};
-                    postMedia.headers[customheader] = JSON.stringify(this.xFile);
+                    postMedia.headers[customheader] = that.fileToJson(this.xFile);
                     postMedia.xFile = this.xFile;
                     postMedia.body = event.target.result;
                     postMedia.go();
@@ -165,6 +172,8 @@ Copyright 2015 Smörgåsbord Development. All rights reserved.
 
                     e.preventDefault();
 
+                    var that = this;
+
                     for (var i = 0, file; file = e.dataTransfer.files[i]; i++) {
                         if (!this.checkFile(file)) {
                             continue;
@@ -175,7 +184,7 @@ Copyright 2015 Smörgåsbord Development. All rights reserved.
                         reader.onload = function (event) {
                             // POST Image to server
                             postMedia.headers = {};
-                            postMedia.headers[customheader] = JSON.stringify(this.xFile);
+                            postMedia.headers[customheader] = that.fileToJson(this.xFile);
                             postMedia.body = event.target.result;
                             postMedia.xFile = this.xFile;
                             postMedia.go();
