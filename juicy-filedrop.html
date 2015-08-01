@@ -38,7 +38,7 @@ Copyright 2015 Smörgåsbord Development. All rights reserved.
 
                 if (!this.allowedmimetypes) {
                     this.allowedmimetypes = ["image/gif", "image/jpeg", "image/png", "image/svg+xml"];
-                } else {
+                } else if (typeof this.allowedmimetypes == "string") {
                     this.allowedmimetypes = this.allowedmimetypes.split(",");
                 }
             },
