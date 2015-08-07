@@ -18,10 +18,10 @@ Or [download as ZIP](https://github.com/Juicy/juicy-filedrop/archive/gh-pages.zi
 
 ## Usage
 
-1. Import Web Components' polyfill:
+1. Import Web Components' polyfill (if needed):
 
     ```html
-    <script src="bower_components/platform/platform.js"></script>
+    <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
     ```
 
 2. Import Custom Element:
@@ -53,6 +53,12 @@ Event             | `event.detail`                                              
 `fileUploaded`    | `{ type: "mime/type", name: "file_name.ext", status: 200, statusText: "OK", url: "location" }`            | Triggers when files was successfully uploaded.
 `fileUploadError` | `{ type: "mime/type", name: "file_name.ext", status: 500, statusText: "Internal Error", url: "" }`        | Triggers when upload fails.
 `fileSelectError` | `{ file: { type: "mime/type", name: "file_name.ext" }, message: "file_name.ext has invalid mime type." }` | Triggers when selected file is too big or has not allowed mime type.
+
+## Methods
+
+Event        | Description
+---          | ---
+`openFile`   | Opens file prompt
 
 
 ## Contributing

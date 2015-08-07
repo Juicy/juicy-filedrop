@@ -20,10 +20,14 @@
             border: 1px solid #ccc;
             border-radius: 3px;
         }
+        juicy-filedrop.hover{
+            border-color: lightblue;
+            box-shadow: 0 0 2px 1px lightblue
+        }
     </style>
 
     <!-- Importing Web Component's Polyfill -->
-    <script src="//cdn.jsdelivr.net/polymer.platform/0.3.4/platform.js"></script>
+    <script src="../webcomponentsjs/webcomponents.js"></script>
 
     <!-- Loading mock file host/server - needed only for demo -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/sinon.js/1.7.3/sinon.js"></script>
@@ -80,7 +84,7 @@
         }());
     </script>
     <p>
-        Maximum files size is 512kb and allowed mime types are <code>[image/jpeg, image/png]</code>.
+        For demo purposes, maximum files size is 512kb and allowed mime types are <code>[image/jpeg, image/png]</code>.
     </p>
     <p>
         Please note, that for this demo we use mock server (<a href="https://github.com/cjohansen/Sinon.JS">Sinon.JS</a>). So observe console, as <code>juicy-filedrop</code>'s request will not reach network tab.

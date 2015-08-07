@@ -1,11 +1,13 @@
 <!--
 Copyright 2015 Smörgåsbord Development. All rights reserved.
 -->
-<link rel="import" href="../polymer/polymer.html" />
-<link rel="import" href="../core-ajax/core-ajax.html" />
+<html>
 
-<polymer-element name="juicy-filedrop" attributes="url customheader value maxfilesize allowedmimetypes">
-    <template>
+<head>
+    <link rel="import" href="../polymer/polymer.html">
+    <link rel="import" href="../iron-ajax/iron-ajax.html">
+
+    <dom-module id="juicy-filedrop">
         <style>
             :host {
                 display: -webkit-box;
@@ -16,62 +18,94 @@ Copyright 2015 Smörgåsbord Development. All rights reserved.
             }
 
             input[type=file] {
-                display:none;
+                display: none;
             }
         </style>
-        <core-ajax id="postMedia" method="POST" url="{{url}}" on-core-response="{{handleResponse}}" on-core-error="{{handleError}}"></core-ajax>
-        <input type="file" id="txtUploadFile" />
-        <content id="content"></content>
-    </template>
+        <template>
+            <iron-ajax id="postMedia" method="POST" url="{{url}}" on-response="handleResponse" on-error="handleError"></iron-ajax>
+            <input type="file" id="txtUploadFile">
+            <content id="content"></content>
+        </template>
+    </dom-module>
     <script>
-        "use strict";
-        Polymer('juicy-filedrop', {
-            url: "",
-            customheader: "x-file",
-            ready: function () {
+        'use strict';
+        Polymer({
+            is: 'juicy-filedrop',
+            properties: {
+                allowedmimetypes: {
+                    notify: true
+                },
+                customheader: {
+                    type: String,
+                    value: 'x-file',
+                    notify: true
+                },
+                maxfilesize: {
+                    notify: true
+                },
+                url: {
+                    type: String,
+                    value: '',
+                    notify: true
+                },
+                value: {
+                    notify: true
+                }
+            },
+            ready: function() {
                 this.setupDrop();
                 this.setupSelect();
-
                 if (!this.maxfilesize) {
                     this.maxfilesize = 524288; //512kb
                 }
-
+                //512kb
                 if (!this.allowedmimetypes) {
-                    this.allowedmimetypes = ["image/gif", "image/jpeg", "image/png", "image/svg+xml"];
-                } else if (typeof this.allowedmimetypes == "string") {
-                    this.allowedmimetypes = this.allowedmimetypes.split(",");
+                    this.allowedmimetypes = [
+                        'image/gif',
+                        'image/jpeg',
+                        'image/png',
+                        'image/svg+xml'
+                    ];
+                } else if (typeof this.allowedmimetypes == 'string') {
+                    this.allowedmimetypes = this.allowedmimetypes.split(',');
                 }
             },
-            checkFile: function (file) {
+            checkFile: function(file) {
                 var m;
-
                 if (this.allowedmimetypes.indexOf(file.type) < 0) {
                     if (file.type) {
-                        m = "File type [" + file.type + "] is not allowed.";
+                        m = 'File type [' + file.type + '] is not allowed.';
                     } else {
-                        m = file.name + " has invalid mime type.";
+                        m = file.name + ' has invalid mime type.';
                     }
-                    
-                    this.fire("fileSelectError", { file: file, message: m });
+                    this.fire('fileSelectError', {
+                        file: file,
+                        message: m
+                    });
                     return false;
                 }
-
                 if (file.size > this.maxfilesize) {
-                    m = ["File ", file.name, " is too big. Maximum file size is: ", (this.maxfilesize / 1024), "kb."].join("");
-
-                    this.fire("fileSelectError", { file: file, message: m });
+                    m = [
+                        'File ',
+                        file.name,
+                        ' is too big. Maximum file size is: ',
+                        this.maxfilesize / 1024,
+                        'kb.'
+                    ].join('');
+                    this.fire('fileSelectError', {
+                        file: file,
+                        message: m
+                    });
                     return false;
                 }
-
                 return true;
             },
-            openFile: function () {
+            openFile: function() {
                 var element = this.$.txtUploadFile;
                 var ev;
-
                 if (document.createEvent) {
-                    ev = document.createEvent("MouseEvents");
-                    ev.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 2, null);
+                    ev = document.createEvent('MouseEvents');
+                    ev.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 2, null);
                     element.dispatchEvent(ev);
                 } else {
                     ev = document.createEventObject();
@@ -79,19 +113,18 @@ Copyright 2015 Smörgåsbord Development. All rights reserved.
                     element.fireEvent('onclick', ev);
                 }
             },
-            fileToJson: function (file) {
+            fileToJson: function(file) {
                 return JSON.stringify({
                     type: file.type,
                     name: encodeURIComponent(file.name)
                 });
             },
-            readData: function (file) {
+            readData: function(file) {
                 var postMedia = this.$.postMedia;
                 var customheader = this.customheader;
                 var reader = new FileReader();
                 var that = this;
-
-                reader.onload = function (event) {
+                reader.onload = function(event) {
                     // POST Image to server
                     postMedia.headers = {};
                     postMedia.headers[customheader] = that.fileToJson(this.xFile);
@@ -99,121 +132,99 @@ Copyright 2015 Smörgåsbord Development. All rights reserved.
                     postMedia.body = event.target.result;
                     postMedia.go();
                 };
-
-                reader.xFile = { type: file.type, name: file.name };
+                reader.xFile = {
+                    type: file.type,
+                    name: file.name
+                };
                 this.fire('fileUploading', reader.xFile);
                 reader.readAsDataURL(file);
             },
-            setupSelect: function () {
-                var onFileSelected = function (e) {
+            setupSelect: function() {
+                var onFileSelected = function(e) {
                     var files = e.target.files;
-
                     for (var i = 0; i < files.length; i++) {
                         var file = files[i];
-
                         if (!this.checkFile(file)) {
                             continue;
                         }
-
                         this.readData(files[i]);
                     }
                 };
-
-                this.$.txtUploadFile.addEventListener("change", onFileSelected.bind(this), false);
+                this.$.txtUploadFile.addEventListener('change', onFileSelected.bind(this), false);
             },
-            setupDrop: function () {
+            setupDrop: function() {
                 var postMedia = this.$.postMedia;
                 var customheader = this.customheader;
-
-                if (typeof window.FileReader === 'undefined') {
-                    // TODO: Browser does not support 'FileReader'
-                }
-
-                this.onpaste = function (event) {
+                if (typeof window.FileReader === 'undefined') {} // TODO: Browser does not support 'FileReader'
+                // TODO: Browser does not support 'FileReader'
+                this.onpaste = function(event) {
                     var items = event.clipboardData.items;
-
-                    for (var i = 0, item ; item = event.clipboardData.items[i]; i++) {
-                        if (item.kind == "file") {
+                    for (var i = 0, item; item = event.clipboardData.items[i]; i++) {
+                        if (item.kind == 'file') {
                             var blob = item.getAsFile();
-                            
                             this.readData(blob);
                         }
                     }
                 };
-
-                this.ondragleave = function () {
-                    if (this.classList.contains("hover")) {
-                        this.classList.remove("hover");
+                this.ondragleave = function() {
+                    if (this.classList.contains('hover')) {
+                        this.classList.remove('hover');
                     }
                 };
-
-                this.ondragover = function (e) {
+                this.ondragover = function(e) {
                     e.stopPropagation();
-
-                    if (!this.classList.contains("hover")) {
-                        this.classList.add("hover");
+                    if (!this.classList.contains('hover')) {
+                        this.classList.add('hover');
                     }
-
                     return false;
                 };
-
-                this.ondragend = function () {
-                    if (this.classList.contains("hover")) {
-                        this.classList.remove("hover");
+                this.ondragend = function() {
+                    if (this.classList.contains('hover')) {
+                        this.classList.remove('hover');
                     }
-
                     return false;
                 };
-
-                this.ondrop = function (e) {
-                    if (this.classList.contains("hover")) {
-                        this.classList.remove("hover");
+                this.ondrop = function(e) {
+                    if (this.classList.contains('hover')) {
+                        this.classList.remove('hover');
                     }
-
                     e.preventDefault();
-
                     var that = this;
-
                     for (var i = 0, file; file = e.dataTransfer.files[i]; i++) {
                         if (!this.checkFile(file)) {
                             continue;
                         }
-
                         var reader = new FileReader();
-
-                        reader.onload = function (event) {
+                        reader.onload = function(event) {
                             // POST Image to server
                             postMedia.headers = {};
                             postMedia.headers[customheader] = that.fileToJson(this.xFile);
                             postMedia.body = event.target.result;
                             postMedia.xFile = this.xFile;
-                            postMedia.go();
+                            postMedia.generateRequest();
                         };
-
-                        reader.xFile = { type: file.type, name: file.name }
+                        reader.xFile = {
+                            type: file.type,
+                            name: file.name
+                        };
                         this.fire('fileUploading', reader.xFile);
                         reader.readAsDataURL(file);
                     }
-
                     return false;
                 };
             },
-            handleResponse: function (ev, res) {
-                this.value = res.xhr.getResponseHeader("x-file-location");
-
+            handleResponse: function(ev, res) {
+                this.value = res.xhr.getResponseHeader('x-file-location');
                 var xFile = JSON.parse(res.xhr.getResponseHeader(this.customheader));
                 xFile.status = res.xhr.status;
                 xFile.statusText = res.xhr.statusText;
-
                 this.fire('fileUploaded', xFile);
             },
-            handleError: function (ev, res) {
+            handleError: function(ev, res) {
                 var xFile = ev.srcElement.xFile;
                 xFile.status = res.xhr.status;
                 xFile.statusText = res.xhr.statusText;
-
                 this.fire('fileUploadError', xFile);
             }
         });
     </script>
-</polymer-element>
