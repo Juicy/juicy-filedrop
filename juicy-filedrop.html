@@ -130,7 +130,7 @@ Copyright 2015 Smörgåsbord Development. All rights reserved.
                     postMedia.headers[customheader] = that.fileToJson(this.xFile);
                     postMedia.xFile = this.xFile;
                     postMedia.body = event.target.result;
-                    postMedia.go();
+                    postMedia.generateRequest();
                 };
                 reader.xFile = {
                     type: file.type,
