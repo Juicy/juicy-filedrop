@@ -154,7 +154,6 @@ Copyright 2015 Smörgåsbord Development. All rights reserved.
                 if (typeof window.FileReader === 'undefined') {} // TODO: Browser does not support 'FileReader'
                 // TODO: Browser does not support 'FileReader'
                 this.onpaste = function(event) {
-                    var items = event.clipboardData.items;
                     for (var i = 0, item; item = event.clipboardData.items[i]; i++) {
                         if (item.kind == 'file') {
                             var blob = item.getAsFile();
