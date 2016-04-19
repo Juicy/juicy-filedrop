@@ -151,8 +151,6 @@ Copyright 2015 Smörgåsbord Development. All rights reserved.
                 this.$.txtUploadFile.addEventListener('change', onFileSelected.bind(this), false);
             },
             setupDrop: function() {
-                var postMedia = this.$.postMedia;
-                var customheader = this.customheader;
                 if (typeof window.FileReader === 'undefined') {} // TODO: Browser does not support 'FileReader'
                 // TODO: Browser does not support 'FileReader'
                 this.onpaste = function(event) {
@@ -192,21 +190,7 @@ Copyright 2015 Smörgåsbord Development. All rights reserved.
                         if (!this.checkFile(file)) {
                             continue;
                         }
-                        var reader = new FileReader();
-                        reader.onload = function(event) {
-                            // POST Image to server
-                            postMedia.headers = {};
-                            postMedia.headers[customheader] = that.fileToJson(this.xFile);
-                            postMedia.body = event.target.result;
-                            postMedia.xFile = this.xFile;
-                            postMedia.generateRequest();
-                        };
-                        reader.xFile = {
-                            type: file.type,
-                            name: file.name
-                        };
-                        this.fire('fileUploading', reader.xFile);
-                        reader.readAsDataURL(file);
+                        this.readData(file);
                     }
                     return false;
                 };
