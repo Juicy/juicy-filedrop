@@ -100,16 +100,7 @@ version: 1.0.2
             },
             openFile: function() {
                 var element = this.$.txtUploadFile;
-                var ev;
-                if (document.createEvent) {
-                    ev = document.createEvent('MouseEvents');
-                    ev.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 2, null);
-                    element.dispatchEvent(ev);
-                } else {
-                    ev = document.createEventObject();
-                    ev.button = 2;
-                    element.fireEvent('onclick', ev);
-                }
+                element.click();
             },
             fileToJson: function(file) {
                 return JSON.stringify({
