@@ -2,26 +2,26 @@
 Copyright 2015 Smörgåsbord Development. All rights reserved.
 -->
 
-    <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer.html">
 
-    <dom-module id="juicy-filedrop">
-        <style>
-            :host {
-                display: -webkit-box;
-                display: -moz-box;
-                display: -ms-flexbox;
-                display: -webkit-flex;
-                display: flex;
-            }
+<dom-module id="juicy-filedrop">
+    <style>
+        :host {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+        }
 
-            input[type=file] {
-                display: none;
-            }
-        </style>
-        <template>
-            <input type="file" id="txtUploadFile">
-            <content id="content"></content>
-        </template>
+        input[type=file] {
+            display: none;
+        }
+    </style>
+    <template>
+        <input type="file" id="txtUploadFile">
+        <content id="content"></content>
+    </template>
     <script>
         'use strict';
         Polymer({
@@ -125,8 +125,7 @@ Copyright 2015 Smörgåsbord Development. All rights reserved.
                     xhr.onload = function(ev) {
                         if (this.status >= 200 && this.status < 300) {
                             that.handleResponse(ev, this);
-                        }
-                        else {
+                        } else {
                             that.handleError(ev, this);
                         }
                     };
