@@ -8,20 +8,20 @@ version: 1.0.2
 <link rel="import" href="../polymer/polymer.html">
 
 <dom-module id="juicy-filedrop">
-    <style>
-        :host {
-            display: -webkit-box;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-        }
-
-        input[type=file] {
-            display: none;
-        }
-    </style>
     <template>
+        <style>
+            :host {
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+            }
+
+            input[type=file] {
+                display: none;
+            }
+        </style>
         <input type="file" id="txtUploadFile">
         <content id="content"></content>
     </template>
