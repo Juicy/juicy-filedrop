@@ -83,12 +83,22 @@ version: 1.0.3
                     return false;
                 }
                 if (file.size > this.maxfilesize) {
+                    var maxfilesizeKb = this.maxfilesize / 1024,
+                        maxfilesizeMb = maxfilesizeKb / 1024,
+                        maxfilesizeString = '';
+
+                    if (maxfilesizeKb > 1024) {
+                        maxfilesizeString = '' + parseFloat(maxfilesizeMb).toFixed(2) + 'MB';
+                    } else {
+                        maxfilesizeString = '' + parseFloat(maxfilesizeKb).toFixed(2) + 'KB';
+                    }
+
                     m = [
                         'File ',
                         file.name,
                         ' is too big. Maximum file size is: ',
-                        this.maxfilesize / 1024,
-                        'kb.'
+                        maxfilesizeString,
+                        '.'
                     ].join('');
                     this.fire('fileSelectError', {
                         file: file,
