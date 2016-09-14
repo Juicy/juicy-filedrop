@@ -1,5 +1,9 @@
 ### Steps to reproduce
 
+#### Live Demo
+<!-- Fork this JSBin, or provide your own URL -->
+https://jsbin.com/ligimo/3/edit?html,output
+
 ### Expected result
 
 ### Actual result
