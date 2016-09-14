@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "version": "gulp propagate-version && git add ./bower.json ./juicy-filedrop.html"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/Juicy/juicy-filedrop/issues"
   },
-  "homepage": "https://github.com/Juicy/juicy-filedrop#readme"
+  "homepage": "https://github.com/Juicy/juicy-filedrop#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-replace": "^0.5.4"
+  }
 }
