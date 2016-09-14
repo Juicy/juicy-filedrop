@@ -1,0 +1,22 @@
+{
+  "name": "juicy-filedrop",
+  "version": "1.0.3",
+  "description": "Polymer Element with file drop panel",
+  "main": "juicy-filedrop.html",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juicy/juicy-filedrop.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Juicy/juicy-filedrop/issues"
+  },
+  "homepage": "https://github.com/Juicy/juicy-filedrop#readme"
+}
