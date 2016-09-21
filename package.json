@@ -1,6 +1,6 @@
 {
   "name": "juicy-filedrop",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Polymer Element with file drop panel",
   "main": "juicy-filedrop.html",
   "directories": {
