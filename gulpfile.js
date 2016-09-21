@@ -5,6 +5,6 @@ gulp.task('propagate-version', function() {
   var next = require('./package.json');
 
   gulp.src(['./juicy-filedrop.html'])
-    .pipe(replace(/version: (.*)/, 'version: ' + next.version))
+    .pipe(replace(/version:\s*(.+)/, 'version: ' + next.version))
     .pipe(gulp.dest('./'));
 });
