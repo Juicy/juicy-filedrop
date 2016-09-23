@@ -54,9 +54,8 @@ version: 1.0.4
                 this.setupDrop();
                 this.setupSelect();
                 if (!this.maxfilesize) {
-                    this.maxfilesize = 524288; //512kb
+                    this.maxfilesize = 524288; //512 KiB
                 }
-                //512kb
                 if (!this.allowedmimetypes) {
                     this.allowedmimetypes = [
                         'image/gif',
@@ -83,14 +82,14 @@ version: 1.0.4
                     return false;
                 }
                 if (file.size > this.maxfilesize) {
-                    var maxfilesizeKb = this.maxfilesize / 1024,
-                        maxfilesizeMb = maxfilesizeKb / 1024,
+                    var maxfilesizeKiB = this.maxfilesize / 1024,
+                        maxfilesizeMiB = maxfilesizeKiB / 1024,
                         maxfilesizeString = '';
 
-                    if (maxfilesizeKb > 1024) {
-                        maxfilesizeString = '' + maxfilesizeMb.toFixed(2) + 'MB';
+                    if (maxfilesizeKiB > 1024) {
+                        maxfilesizeString = '' + maxfilesizeMiB.toFixed(2) + 'MiB';
                     } else {
-                        maxfilesizeString = '' + maxfilesizeKb.toFixed(2) + 'KB';
+                        maxfilesizeString = '' + maxfilesizeKiB.toFixed(2) + 'KiB';
                     }
 
                     m = [

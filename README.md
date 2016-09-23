@@ -42,7 +42,7 @@ Attribute          | Options  | Default                                        |
 ---                | ---      | ---                                            | ---
 `url`              | *string* | ``                                             | URL to files storage server.
 `customheader`     | *string* | `x-file`                                       | Name for custom header that contains JSON with file meta data.
-`maxfilesize`      | *int*    | `524288`                                       | Maximum file size in bytes, 512kb by default.
+`maxfilesize`      | *int*    | `524288`                                       | Maximum file size in bytes, 512 KiB by default.
 `allowedmimetypes` | *string* | `image/gif,image/jpeg,image/png,image/svg+xml` | Allowed mime types.
 
 ## Events
