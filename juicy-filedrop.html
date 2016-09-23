@@ -110,6 +110,7 @@ version: 1.0.4
             },
             openFile: function() {
                 var element = this.$.txtUploadFile;
+                element.value = "";
                 element.click();
             },
             fileToJson: function(file) {
