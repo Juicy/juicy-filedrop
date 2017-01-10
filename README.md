@@ -14,7 +14,7 @@ Install the component using [Bower](http://bower.io/):
 $ bower install juicy-filedrop --save
 ```
 
-Or [download as ZIP](https://github.com/Juicy/juicy-filedrop/archive/gh-pages.zip).
+Or [download as ZIP](https://github.com/Juicy/juicy-filedrop/archive/master.zip).
 
 ## Usage
 
